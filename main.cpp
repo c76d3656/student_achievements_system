@@ -85,7 +85,27 @@ class College:Student{
     double english;
     double program_design;
     double ad_math;
+
+    void achievement_show() override;
+    double sum() override;
+    double avg() override;
 };
+
+void College::achievement_show() {
+    printf("major in %\ts", this->major.c_str());
+    printf("%lf\t%lf\t%lf\t\n", this->english, this->program_design, this->ad_math);
+}
+
+double College::sum() {
+    auto _sum = this->english+this->program_design+this->ad_math;
+    return _sum;
+}
+
+double College::avg() {
+    auto _avg = this->sum()/(3,0);
+    return _avg;
+}
+
 
 //函数声明
 //添加功能
