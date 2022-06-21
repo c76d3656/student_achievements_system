@@ -570,7 +570,7 @@ std::string get_dir(){
 }
 void save(){
     std::string dir = get_dir();
-    std::ofstream out1(dir+"js_data");
+    std::ofstream out1(dir+"js_data.txt");
     if(out1.is_open()){
         for(const auto &js:total_js_list){
             out1<<js->info.id<<" ";
@@ -584,7 +584,7 @@ void save(){
         }
     }
     out1.close();
-    std::ofstream out2(dir+"jk_data");
+    std::ofstream out2(dir+"jk_data.txt");
     if(out2.is_open()){
         for(const auto &jk :total_jk_list){
             out2<<jk->info.id<<" ";
@@ -600,7 +600,7 @@ void save(){
         }
     }
     out2.close();
-    std::ofstream out3(dir+"college_data");
+    std::ofstream out3(dir+"college_data.txt");
     if(out3.is_open()) {
         for(const auto &college : total_college_list){
             out3<<college->info.id<<" ";
@@ -781,6 +781,7 @@ int main() {
             }
             case 2:
             {
+                system("cls");
                 std::cout<<"1. show js"<<std::endl;
                 std::cout<<"2. show jk"<<std::endl;
                 std::cout<<"3. show college"<<std::endl;
@@ -788,13 +789,26 @@ int main() {
                 int tmp;
                 std::cin>>tmp;
                 switch (tmp) {
-                    case 1:show_js_list();
+                    case 1:
+                        system("cls");
+                        show_js_list();
+                        system("pause");
                         break;
-                    case 2:show_jk_list();
+                    case 2:
+                        system("cls");
+                        show_jk_list();
+                        system("pause");
                         break;
-                    case 3:show_college_list();
+                    case 3:
+                        system("cls");
+                        show_college_list();
+                        system("pause");
                         break;
-                    case 4:show_all_student();
+                    case 4:
+                        system("cls");
+                        show_all_student();
+                        system("pause");
+                        break;
                     default:{
                         printf("error");
                     }
@@ -803,6 +817,7 @@ int main() {
             }
             case 3:
             {
+                system("cls");
                 std::cout << "1. search js" << std::endl;
                 std::cout << "2. search jk" << std::endl;
                 std::cout << "3. search college" << std::endl;
@@ -814,20 +829,25 @@ int main() {
                 switch (tmp) {
                     case 1:
                         search_js(id);
+                        system("pause");
                         break;
                     case 2:
                         search_jk(id);
+                        system("pause");
                         break;
                     case 3:
                         search_college(id);
+                        system("pause");
                         break;
                     default:
                         printf("error");
+                        system("pause");
                 }
                 break;
             }
             case 4:
             {
+                system("cls");
                 std::cout << "1. change js information" << std::endl;
                 std::cout << "2. change jk information" << std::endl;
                 std::cout << "3. change college information" << std::endl;
@@ -839,20 +859,25 @@ int main() {
                 switch (tmp) {
                     case 1:
                         change_js_information(id);
+                        system("pause");
                         break;
                     case 2:
                         change_jk_information(id);
+                        system("pause");
                         break;
                     case 3:
                         change_college_information(id);
+                        system("pause");
                         break;
                     default:
                         printf("error");
+                        system("pause");
                 }
                 break;
             }
             case 5:
             {
+                system("cls");
                 std::cout << "1. remove js" << std::endl;
                 std::cout << "2. remove jk" << std::endl;
                 std::cout << "3. remove college" << std::endl;
@@ -864,20 +889,25 @@ int main() {
                 switch (tmp) {
                     case 1:
                         remove_js(id);
+                        system("pause");
                         break;
                     case 2:
                         remove_jk(id);
+                        system("pause");
                         break;
                     case 3:
                         remove_college(id);
+                        system("pause");
                         break;
                     default:
                         printf("error");
+                        system("pause");
                 }
                 break;
             }
             case 6:
             {
+                system("cls");
                 std::cout<<"there are"<<how_many_student()<<std::endl;
                 std::cout<<"js have"<<how_many_js()<<std::endl;
                 std::cout<<"jk have"<<how_many_jk()<<std::endl;
@@ -892,6 +922,7 @@ int main() {
                         std::cout<<"English Avg: "<<js_eng_avg()<<std::endl;
                         std::cout<<"Math Avg: "<<js_math_avg()<<std::endl;
                         std::cout<<"Chinese Avg: "<<js_chinese_avg()<<std::endl;
+                        system("pause");
                         break;
                     case 2:
                         std::cout<<"English Avg: "<<jk_eng_avg()<<std::endl;
@@ -899,19 +930,23 @@ int main() {
                         std::cout<<"Chinese Avg: "<<jk_chinese_avg()<<std::endl;
                         std::cout<<"Geography Avg: "<<jk_geo_avg()<<std::endl;
                         std::cout<<"History Avg: "<<jk_history_avg()<<std::endl;
+                        system("pause");
                         break;
                     case 3:
                         std::cout<<"English Avg: "<<college_english_avg()<<std::endl;
                         std::cout<<"Math Avg: "<<college_math_avg()<<std::endl;
                         std::cout<<"Program Design Avg: "<<college_pro_avg()<<std::endl;
+                        system("pause");
                         break;
                     default:
                         printf("error");
+                        system("pause");
                 }
                 break;
             }
             case 7:
             {
+                system("cls");
                 std::cout<<"1. sort by Sum"<<std::endl;
                 std::cout<<"2. sort by English"<<std::endl;
                 std::cout<<"3. sort by Math"<<std::endl;
@@ -951,6 +986,7 @@ int main() {
                         sort_college_pro();
                     default:
                         printf("error");
+                        system("pause");
                 }
                 break;
             }
@@ -962,10 +998,12 @@ int main() {
             case 0:
             {
                 printf("\nexit function something bad,please exit by yourselves!\n");
+                system("pause");
                 break;
             }
             default:
                 printf("error input");
+                system("pause");
         }
     }
 }
