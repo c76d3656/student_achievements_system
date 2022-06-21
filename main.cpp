@@ -465,30 +465,126 @@ void sort_college_pro(){
     std::sort(total_college_list.begin(),total_college_list.end(), cmp_program_college);
     printf("\nsort success\n");
 }
-//保存功能
-void save(){
-    std::string dir;
-    {
-        char _tmp[256];
-        getcwd(_tmp,256);
-        for(auto &c:_tmp){
-            if(c=='\\')
-                c='/';
-        }
-        std::string tmp(_tmp);
-        auto tmp_dir = tmp+"/data/";
-        if(0 != access(tmp_dir.c_str(),0)){
-            mkdir(tmp_dir.c_str());
-        }
-        dir=tmp_dir;
+//保存与初始化功能
+std::string get_dir(){
+    char _tmp[256];
+    getcwd(_tmp,256);
+    for(auto &c:_tmp){
+        if(c=='\\')
+            c='/';
     }
+    std::string tmp(_tmp);
+    auto tmp_dir = tmp+"/data/";
+    if(0 != access(tmp_dir.c_str(),0)){
+        mkdir(tmp_dir.c_str());
+    }
+    return tmp_dir;
+}
+void save(){
+    std::string dir = get_dir();
     std::ofstream out1(dir+"js_data");
     if(out1.is_open()){
         for(const auto &js:total_js_list){
-
+            out1<<js->info.id<<" ";
+            out1<<js->info.name<<" ";
+            out1<<js->info.gender<<" ";
+            out1<<js->info.age<<" ";
+            out1<<js->info.classroom_id<<" ";
+            out1<<js->english<<" ";
+            out1<<js->math<<" ";
+            out1<<js->chinese<<"\n";
         }
     }
+    out1.close();
+    std::ofstream out2(dir+"jk_data");
+    if(out2.is_open()){
+        for(const auto &jk :total_jk_list){
+            out2<<jk->info.id<<" ";
+            out2<<jk->info.name<<" ";
+            out2<<jk->info.gender<<" ";
+            out2<<jk->info.age<<" ";
+            out2<<jk->info.classroom_id<<" ";
+            out2<<jk->english<<" ";
+            out2<<jk->math<<" ";
+            out2<<jk->chinese<<" ";
+            out2<<jk->geography<<" ";
+            out2<<jk->history<<"\n";
+        }
+    }
+    out2.close();
+    std::ofstream out3(dir+"college_data");
+    if(out3.is_open()) {
+        for(const auto &college : total_college_list){
+            out3<<college->info.id<<" ";
+            out3<<college->info.name<<" ";
+            out3<<college->info.gender<<" ";
+            out3<<college->info.age<<" ";
+            out3<<college->info.classroom_id<<" ";
+            out3<<college->major<<" ";
+            out3<<college->english<<" ";
+            out3<<college->program_design<<" ";
+            out3<<college->ad_math<<"\n";
+        }
+    }
+    out3.close();
 }
+void init(){
+    std::string dir = get_dir();
+    std::ifstream in1(dir+"js_data.txt");
+    if(in1.is_open()){
+        unsigned int id;
+        std::string name;
+        bool gender;
+        unsigned int age;
+        unsigned int classroom_id;
+        double english;
+        double math;
+        double chinese;
+        while (!in1.eof()){
+            in1>>id>>name>>gender>>age>>classroom_id>>english>>math>>chinese;
+            new_js(id,name,gender,age,classroom_id,english,math,chinese);
+        }
+    }
+    in1.close();
+    std::ifstream in2(dir+"jk_data.txt");
+    if(in2.is_open()){
+        unsigned int id;
+        std::string name;
+        bool gender;
+        unsigned int age;
+        unsigned int classroom_id;
+        double english;
+        double math;
+        double chinese;
+        double geography;
+        double history;
+        while (!in2.eof()){
+            in1>>id>>name>>gender>>age>>classroom_id>>english>>math>>chinese>>geography>>history;
+            new_jk(id,name,gender,age,classroom_id,english,math,chinese,geography,history);
+        }
+    }
+    in2.close();
+    std::ifstream in3(dir+"college_data.txt");
+    if(in3.is_open()){
+        unsigned int id;
+        std::string name;
+        bool gender;
+        unsigned int age;
+        unsigned int classroom_id;
+        std::string major;
+        double english;
+        double program_design;
+        double ad_math;
+        while (!in3.eof()){
+            in1>>id>>name>>gender>>age>>classroom_id>>major>>english>>program_design>>ad_math;
+            new_college(id,name,gender,age,classroom_id,major,english,program_design,ad_math);
+        }
+    }
+    in3.close();
+}
+
+
+
 int main() {
     std::cout << "Hello, World!" << std::endl;
     return 0;
