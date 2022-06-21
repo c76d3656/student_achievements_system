@@ -2,7 +2,8 @@
 #include "JS.h"
 #include "JK.h"
 #include "College.h"
-
+#include <direct.h>
+#include <fstream>
 
 
 //函数声明
@@ -41,18 +42,72 @@ void search_college(unsigned int id);
 void show_js_list();
 void show_jk_list();
 void show_college_list();
+void show_js_achievement_list();
+void show_jk_achievement_list();
+void show_college_achievement_list();
 void show_all_student();
 //编辑功能
-void change_information();
+void change_js_information(unsigned int id);
+void change_jk_information(unsigned int id);
+void change_college_information(unsigned int id);
 //删除功能
-bool remove_student();
+bool remove_js(unsigned int id);
+bool remove_jk(unsigned int id);
+bool remove_college(unsigned int id);
 //统计功能
-int how_many_student();
-int target_student_sum();
-int target_student_avg();
+unsigned int how_many_js();
+unsigned int how_many_jk();
+unsigned int how_many_college();
+unsigned int how_many_student();
+double target_js_sum(unsigned int id);
+double target_jk_sum(unsigned int id);
+double target_college_sum(unsigned int id);
+double target_js_avg(unsigned int id);
+double target_jk_avg(unsigned int id);
+double target_college_avg(unsigned int id);
 //排序功能
-
-
+bool cmp_sum_js(JS* a,JS* b){
+    return (a)->sum()>(b)->sum();
+}
+bool cmp_sum_jk(JK* a,JK* b){
+    return a->sum()>b->sum();
+}
+bool cmp_sum_college(College* a,College* b){
+    return a->sum()>b->sum();
+}
+bool cmp_eng_js(JS*& a,JS*& b){
+    return (a)->english>(b)->english;
+}
+bool cmp_eng_jk(JK*& a,JK*& b){
+    return a->english>b->english;
+}
+bool cmp_eng_college(College*& a,College*& b){
+    return (a)->english>(b)->english;
+}
+bool cmp_math_js(JS*& a,JS*& b){
+    return a->math>b->math;
+}
+bool cmp_math_jk(JK*& a,JK*& b){
+    return a->math>b->math;
+}
+bool cmp_math_college(College*& a,College*& b){
+    return a->ad_math>b->ad_math;
+}
+bool cmp_zh_js(JS*& a,JS*& b){
+    return a->chinese>b->chinese;
+}
+bool cmp_zh_jk(JK*& a,JK*& b){
+    return a->chinese>b->chinese;
+}
+bool cmp_geo_jk(JK*& a,JK*& b){
+    return a->geography>b->geography;
+}
+bool cmp_history_jk(JK*& a, JK*& b){
+    return a->history<b->history;
+}
+bool cmp_program_college(College*& a, College*& b){
+    return a->program_design>b->program_design;
+}
 //保存功能
 
 //读取功能
@@ -99,6 +154,7 @@ void search_js(unsigned int id){
         if(js->info.id==id){
             js->info_show();
             js->achievement_show();
+            return;
         }
     }
 }
@@ -111,6 +167,7 @@ void search_jk(unsigned int id){
         if(jk->info.id==id){
             jk->info_show();
             jk->achievement_show();
+            return;
         }
     }
 }
@@ -123,6 +180,7 @@ void search_college(unsigned int id){
         if(college->info.id == id){
             college->info_show();
             college->achievement_show();
+            return;
         }
     }
 }
@@ -145,13 +203,292 @@ void show_college_list(){
     }
     printf("---------------------------\n");
 }
+void show_js_achievement_list(){
+    for(auto js:total_js_list){
+        js->achievement_show();
+    }
+    printf("---------------------------\n");
+}
+void show_jk_achievement_list(){
+    for(auto jk:total_jk_list){
+        jk->achievement_show();
+    }
+    printf("---------------------------\n");
+}
+void show_college_achievement_list(){
+    for(auto college:total_js_list){
+        college->achievement_show();
+    }
+    printf("---------------------------\n");
+}
 void show_all_student(){
     show_js_list();
     show_jk_list();
     show_college_list();
 }
+//编辑功能
+void change_js_information(unsigned int id){
+    if(js_id_is_exist(id)){
+        printf("this js_is isn't exits");
+        return;
+    }
+    for(auto js : total_js_list){
+        if(js->info.id==id){
+            js->change_info();
+            return;
+        }
+    }
+}
+void change_jk_information(unsigned int id){
+    if(jk_id_is_exist(id)){
+        printf("this jk_is isn't exits");
+        return;
+    }
+    for(auto jk : total_jk_list){
+        if(jk->info.id==id){
+            jk->change_info();
+            return;
+        }
+    }
+}
+void change_college_information(unsigned int id){
+    if(college_id_is_exist(id)){
+        printf("this college_is isn't exits");
+        return;
+    }
+    for(auto college : total_college_list){
+        if(college->info.id == id){
+            college->change_info();
+            return;
+        }
+    }
+}
+//删除功能
+bool remove_js(unsigned int id){
+    if(js_id_is_exist(id)){
+        printf("this js_is isn't exits");
+        return false;
+    }
+    for(auto js : total_js_list){
+        if(js->info.id==id){
+            js->remove();
+            return true;
+        }
+    }
+    return true;
+}
+bool remove_jk(unsigned int id){
+    if(jk_id_is_exist(id)){
+        printf("this jk_is isn't exits");
+        return false;
+    }
+    for(auto jk : total_jk_list){
+        if(jk->info.id==id){
+            jk->remove();
+            return true;
+        }
+    }
+    return true;
+}
+bool remove_college(unsigned int id){
+    if(college_id_is_exist(id)){
+        printf("this college_is isn't exits");
+        return false;
+    }
+    for(auto college : total_college_list){
+        if(college->info.id == id){
+            college->remove();
+            return true;
+        }
+    }
+    return true;
+}
+//统计功能
+unsigned int how_many_js(){
+    unsigned int num = total_js_list.size();
+    printf("there are %d js\n",num);
+    return num;
+}
+unsigned int how_many_jk(){
+    unsigned int num = total_jk_list.size();
+    printf("there are %d jk\n",num);
+    return num;
+}
+unsigned int how_many_college(){
+    unsigned int num = total_college_list.size();
+    printf("there are %d college\n",num);
+    return num;
+}
+unsigned int how_many_student(){
+    unsigned int num = how_many_js()+how_many_jk()+how_many_college();
+    printf("there are %d student\n",num);
+    return num;
+}
+double target_js_sum(unsigned int id){
+    double num=-1;
+    if(js_id_is_exist(id)){
+        printf("this js_is isn't exits");
+        return false;
+    }
+    for(auto js : total_js_list){
+        if(js->info.id==id){
+            num =js->sum();
+            return num;
+        }
+    }
+    return num;
+}
+double target_jk_sum(unsigned int id){
+    double num=-1;
+    if(jk_id_is_exist(id)){
+        printf("this jk_is isn't exits");
+        return false;
+    }
+    for(auto jk : total_jk_list){
+        if(jk->info.id==id){
+            num = jk->sum();
+            return true;
+        }
+    }
+    return num;
+}
+double target_college_sum(unsigned int id){
+    double num=-1;
+    if(college_id_is_exist(id)){
+        printf("this college_is isn't exits");
+        return false;
+    }
+    for(auto college : total_college_list){
+        if(college->info.id == id){
+            num = college->sum();
+            return true;
+        }
+    }
+    return num;
+}
+double target_js_avg(unsigned int id){
+    double num=-1;
+    if(js_id_is_exist(id)){
+        printf("this js_is isn't exits");
+        return false;
+    }
+    for(auto js : total_js_list){
+        if(js->info.id==id){
+            num =js->avg();
+            return num;
+        }
+    }
+    return num;
+}
+double target_jk_avg(unsigned int id){
+    double num=-1;
+    if(jk_id_is_exist(id)){
+        printf("this jk_is isn't exits");
+        return false;
+    }
+    for(auto jk : total_jk_list){
+        if(jk->info.id==id){
+            num = jk->avg();
+            return true;
+        }
+    }
+    return num;
+}
+double target_college_avg(unsigned int id){
+    double num=-1;
+    if(college_id_is_exist(id)){
+        printf("this college_is isn't exits");
+        return false;
+    }
+    for(auto college : total_college_list){
+        if(college->info.id == id){
+            num = college->avg();
+            return true;
+        }
+    }
+    return num;
+}
+//排序功能
+void sort_js_sum(){
+    std::sort(total_js_list.begin(),total_js_list.end(), cmp_sum_js);
+    printf("\nsort success\n");
+}
+void sort_jk_sum(){
+    std::sort(total_jk_list.begin(),total_jk_list.end(), cmp_sum_jk);
+    printf("\nsort success\n");
+}
+void sort_college_sum(){
+    std::sort(total_college_list.begin(),total_college_list.end(), cmp_sum_college);
+    printf("\nsort success\n");
+}
+void sort_js_eng(){
+    std::sort(total_js_list.begin(),total_js_list.end(), cmp_eng_js);
+    printf("\nsort success\n");
+}
+void sort_jk_eng(){
+    std::sort(total_jk_list.begin(),total_jk_list.end(), cmp_eng_jk);
+    printf("\nsort success\n");
+}
+void sort_college_eng(){
+    std::sort(total_college_list.begin(),total_college_list.end(), cmp_eng_college);
+    printf("\nsort success\n");
+}
+void sort_js_math(){
+    std::sort(total_js_list.begin(),total_js_list.end(), cmp_math_js);
+    printf("\nsort success\n");
+}
+void sort_jk_math(){
+    std::sort(total_jk_list.begin(),total_jk_list.end(), cmp_math_jk);
+    printf("\nsort success\n");
+}
+void sort_college_math(){
+    std::sort(total_college_list.begin(),total_college_list.end(), cmp_math_college);
+    printf("\nsort success\n");
+}
+void sort_js_zh(){
+    std::sort(total_js_list.begin(),total_js_list.end(), cmp_zh_js);
+    printf("\nsort success\n");
+}
+void sort_jk_zh(){
+    std::sort(total_jk_list.begin(),total_jk_list.end(), cmp_zh_jk);
+    printf("\nsort success\n");
+}
+void sort_jk_geo(){
+    std::sort(total_jk_list.begin(),total_jk_list.end(), cmp_geo_jk);
+    printf("\nsort success\n");
+}
+void sort_jk_his(){
+    std::sort(total_jk_list.begin(),total_jk_list.end(), cmp_history_jk);
+    printf("\nsort success\n");
+}
+void sort_college_pro(){
+    std::sort(total_college_list.begin(),total_college_list.end(), cmp_program_college);
+    printf("\nsort success\n");
+}
+//保存功能
+void save(){
+    std::string dir;
+    {
+        char _tmp[256];
+        getcwd(_tmp,256);
+        for(auto &c:_tmp){
+            if(c=='\\')
+                c='/';
+        }
+        std::string tmp(_tmp);
+        auto tmp_dir = tmp+"/data/";
+        if(0 != access(tmp_dir.c_str(),0)){
+            mkdir(tmp_dir.c_str());
+        }
+        dir=tmp_dir;
+    }
+    std::ofstream out1(dir+"js_data");
+    if(out1.is_open()){
+        for(const auto &js:total_js_list){
 
-
+        }
+    }
+}
 int main() {
     std::cout << "Hello, World!" << std::endl;
     return 0;

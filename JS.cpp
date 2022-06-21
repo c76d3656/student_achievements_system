@@ -10,7 +10,7 @@ std::set<unsigned int> js_id_set;
 
 
 void JS::achievement_show() {
-    printf("%lf\t%lf\t%lf\t\n", this->chinese, this->math, this->english);
+    printf("\t%d\t%s\t%lf\t%lf\t%lf\t\n", this->info.id, this->info.name.c_str() ,this->chinese, this->math, this->english);
 }
 
 double JS::sum() {

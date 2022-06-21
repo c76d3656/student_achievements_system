@@ -19,7 +19,7 @@ public:
 
 
     void achievement_show() override;
-    double sum() override;
+    double sum()override;
     double avg() override;
     void change_info() override;
     void remove() override;

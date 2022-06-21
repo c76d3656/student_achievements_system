@@ -10,7 +10,7 @@ std::vector<JK*> total_jk_list;
 std::set<unsigned int> jk_id_set;
 
 void JK::achievement_show() {
-    printf("%lf\t%lf\t%lf\t%lf\t%lf\t\n", this->chinese, this->math, this->english, this->geography, this->history);
+    printf("\t%d\t%s\t%lf\t%lf\t%lf\t%lf\t%lf\t\n",this->info.id, this->info.name.c_str() , this->chinese, this->math, this->english, this->geography, this->history);
 }
 
 double JK::sum() {
@@ -85,4 +85,6 @@ JK::JK(information Base,double English,double Math,double Chinese,double geograp
 this->geography=geography;
 this->history=history;
 }
+
+
 

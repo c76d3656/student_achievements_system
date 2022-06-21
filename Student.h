@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
-
+#include <algorithm>
 
 
 //学生信息结构体

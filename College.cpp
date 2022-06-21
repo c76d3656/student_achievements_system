@@ -11,7 +11,7 @@ std::set<unsigned int> college_id_set;
 
 void College::achievement_show() {
     printf("major in %\ts", this->major.c_str());
-    printf("%lf\t%lf\t%lf\t\n", this->english, this->program_design, this->ad_math);
+    printf("\t%d\t%s\t%lf\t%lf\t%lf\t\n", this->info.id, this->info.name.c_str() ,this->english, this->program_design, this->ad_math);
 }
 
 double College::sum() {
