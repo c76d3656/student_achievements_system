@@ -25,10 +25,6 @@ struct information
 //学生基类
 class Student{
 public:
-    information info;
-    void info_show() const{
-        printf("%d\t%s\t%s\t%d\t%d\t\n", this->info.id, this->info.name.c_str(),(this->info.gender?"man":"girl"), this->info.age,this->info.classroom_id);
-    }
     void info_change(){
         printf("change name:");
         {
@@ -72,6 +68,12 @@ public:
     virtual double sum()=0;
     virtual double avg()=0;
 
+
+    information info;
+
+    void info_show() const{
+        printf("%d\t%s\t%s\t%d\t%d\t\n", this->info.id, this->info.name.c_str(),(this->info.gender?"man":"girl"), this->info.age,this->info.classroom_id);
+    }
 };
 
 #endif //STUDENT_ACHIEVEMENTS_SYSTEM_STUDENT_H

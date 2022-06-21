@@ -9,7 +9,7 @@
 #pragma once
 
 //中学生
-class JK:JS{
+class JK:public JS{
 public:
 
     double geography;

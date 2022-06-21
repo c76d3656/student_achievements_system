@@ -10,7 +10,7 @@
 #pragma once
 
 //大学生
-class College:Student{
+class College:public Student{
 public:
     std::string major;
     double english;
