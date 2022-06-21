@@ -85,6 +85,22 @@ JK::JK(information Base,double English,double Math,double Chinese,double geograp
 this->geography=geography;
 this->history=history;
 }
-
+/*
+ *
+ * unsigned int how_many_js();
+unsigned int how_many_jk();
+unsigned int how_many_college();
+unsigned int how_many_student();
+double target_js_sum(unsigned int id);
+double target_jk_sum(unsigned int id);
+double target_college_sum(unsigned int id);
+double target_js_avg(unsigned int id);
+double target_jk_avg(unsigned int id);
+double target_college_avg(unsigned int id);
+ *
+ *
+ *
+ *
+ * */
 
 
